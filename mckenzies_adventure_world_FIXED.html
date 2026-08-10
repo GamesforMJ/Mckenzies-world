@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>McKenzie's Adventure World</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap');
+:root{
+ --ink:#24465b;--sky:#b8e7fb;--cream:#fff3c4;--grass:#76c982;--grass2:#9cdea0;
+ --yellow:#ffd45e;--blue:#9ddbf5;--green:#9fdda7;--orange:#ffc08f;--purple:#d5c4ff;--pink:#ffc5dc;
+ --white:#fff;--shadow:0 16px 32px rgba(36,70,91,.18);
+}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Baloo 2",Arial,sans-serif;color:var(--ink)}
+button{font:inherit;border:0;cursor:pointer;color:inherit}
+body{background:#b8e7fb}.app{height:100dvh;position:relative;overflow:hidden}
+.screen{position:absolute;inset:0;display:none}.screen.active{display:block}
+.sky{position:absolute;inset:0;background:linear-gradient(#a8ddf7 0%,#dff5ff 55%,#ffeab5 55%,#a8dda0 100%)}
+.sun{position:absolute;right:6vw;top:4vh;width:100px;height:100px;border-radius:50%;background:#ffd762;box-shadow:0 0 55px #fff0a1}
+.cloud{position:absolute;width:155px;height:38px;border-radius:40px;background:#fff9;filter:drop-shadow(0 7px 5px #4a7b8c22);animation:drift 45s linear infinite}
+.cloud:before,.cloud:after{content:"";position:absolute;background:#fff9;border-radius:50%}.cloud:before{width:58px;height:58px;left:20px;top:-25px}.cloud:after{width:76px;height:76px;left:70px;top:-39px}
+.c1{top:12%;left:-190px}.c2{top:28%;left:-230px;animation-duration:55s}.c3{top:18%;left:-260px;animation-duration:65s}
+@keyframes drift{to{transform:translateX(140vw)}}
+.backHills{position:absolute;left:-10%;right:-10%;bottom:0;height:48%;background:#a9dfa2;border-radius:50% 50% 0 0/25% 25% 0 0}
+.frontHills{position:absolute;left:-10%;right:-10%;bottom:0;height:32%;background:#6fc77d;border-radius:50% 50% 0 0/20% 20% 0 0}
+.path{position:absolute;left:50%;bottom:-4%;transform:translateX(-50%);width:28%;height:38%;background:#e9c895;border-radius:50% 50% 0 0/30% 30% 0 0;opacity:.9}
+.header{position:absolute;z-index:20;top:12px;left:2%;right:2%;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:10px}.brandLogo{width:58px;height:58px;border-radius:20px;background:#fff;box-shadow:var(--shadow);display:grid;place-items:center}.brandName{background:#fffffff2;border-radius:19px;padding:7px 14px;box-shadow:var(--shadow)}.brandName b{font-size:24px;display:block;line-height:1}.brandName small{font-weight:700;color:#547586}
+.stars{background:#fff;border-radius:18px;padding:8px 13px;box-shadow:var(--shadow);font-weight:800}.stars b{font-size:23px;color:#e2aa18}
+.homeTitle{position:absolute;z-index:4;top:13%;left:50%;transform:translateX(-50%);text-align:center;background:#ffffffe8;padding:13px 25px;border-radius:28px;box-shadow:var(--shadow);min-width:330px}.homeTitle h1{font-size:clamp(30px,4vw,49px);margin:0;line-height:.95}.homeTitle p{margin:3px 0 0;font-size:16px;font-weight:700}
+.world{position:absolute;z-index:8;inset:0;pointer-events:none}
+.hotspot{pointer-events:auto;position:absolute;border:5px solid #fff;box-shadow:var(--shadow);border-radius:50%;width:150px;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:.2s;background:#fff;overflow:hidden}
+.hotspot:hover{transform:scale(1.07) translateY(-5px)}.hotspot .art{font-size:67px;line-height:1;filter:drop-shadow(0 8px 4px #315e6c22)}.hotspot strong{font-size:22px;line-height:1}.hotspot small{font-weight:700;color:#5d7785}
+.hColours{left:7%;top:31%;background:linear-gradient(#fff1a6,#ffd45e)}.hShapes{left:27%;top:55%;background:linear-gradient(#dff7ff,#9bd9f2)}.hNumbers{right:27%;top:55%;background:linear-gradient(#dff5df,#a3dca9)}.hPlay{right:7%;top:31%;background:linear-gradient(#ffe5cf,#ffc08d)}.hMatch{left:50%;top:58%;transform:translateX(-50%);background:linear-gradient(#eee7ff,#d1c0ff)}.hAnimals{left:50%;top:28%;transform:translateX(-50%);background:linear-gradient(#e7f8e8,#b7e3bd)}
+.hotspot.hMatch:hover,.hotspot.hAnimals:hover{transform:translateX(-50%) scale(1.07) translateY(-5px)}
+.decor{position:absolute;z-index:3;font-size:40px;filter:drop-shadow(0 6px 3px #315e6c22)}.d1{left:17%;bottom:14%}.d2{left:34%;bottom:9%}.d3{right:18%;bottom:13%}.d4{right:36%;bottom:7%}
+.plane{position:absolute;z-index:5;right:17%;top:19%;font-size:66px;transform:rotate(-7deg);filter:drop-shadow(0 10px 4px #315e6c22);animation:float 5s ease-in-out infinite}@keyframes float{50%{transform:translateY(-8px) rotate(-4deg)}}
+.dinoArt{position:absolute;z-index:4;bottom:11%;left:50%;transform:translateX(-50%);font-size:120px;filter:drop-shadow(0 13px 5px #315e6c30);animation:softBob 4s ease-in-out infinite}@keyframes softBob{50%{transform:translateX(-50%) translateY(-5px)}}
+.teddy{position:absolute;z-index:4;bottom:10%;left:17%;font-size:83px;filter:drop-shadow(0 10px 4px #315e6c22)}
+.bird{position:absolute;z-index:5;top:24%;left:43%;font-size:50px;animation:float 4.5s ease-in-out infinite}
+
+.activity{background:linear-gradient(#dff6ff 0%,#f8fdff 53%,#e7f2ce 53%,#c5e9bd 100%)}
+.activity:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 20%,#fff7 0 5%,transparent 6%),radial-gradient(circle at 85% 27%,#fff7 0 5%,transparent 6%);opacity:.8}
+.activityHeader{position:absolute;z-index:10;top:12px;left:2%;right:2%;display:grid;grid-template-columns:110px 1fr 110px;align-items:center;gap:10px}
+.back{background:#fff;border:4px solid #fff;border-radius:18px;padding:8px 12px;box-shadow:var(--shadow);font-weight:800}.activityName{text-align:center;background:#fffffff2;border-radius:20px;padding:7px 15px;box-shadow:var(--shadow)}.activityName b{font-size:25px;display:block;line-height:1}.activityName small{font-weight:700;color:#5d7887}.roundPill{justify-self:end;background:#fff;border-radius:18px;padding:9px 12px;box-shadow:var(--shadow);font-weight:800}
+.roundLine{position:absolute;z-index:11;top:86px;left:8%;right:8%;height:10px;background:#ffffffaa;border-radius:20px;overflow:hidden}.roundLine i{display:block;width:20%;height:100%;background:#ffd45e;border-radius:20px;transition:.35s}
+.instruction{position:absolute;z-index:8;top:15%;left:50%;transform:translateX(-50%);text-align:center;background:#fffffff2;border-radius:28px;padding:14px 24px;box-shadow:var(--shadow);min-width:300px}.instruction h2{font-size:clamp(28px,4vw,45px);margin:0;line-height:.95}.instruction p{margin:4px 0;font-weight:700;color:#607b8a}
+.choices{position:absolute;z-index:8;left:7%;right:7%;top:31%;bottom:11%;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:center}
+.choice{border:6px solid #fff;border-radius:40px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:230px;transition:.2s;position:relative;overflow:hidden}.choice:hover{transform:translateY(-6px)}.choice .visual{font-size:105px;filter:drop-shadow(0 10px 5px #315e6c22)}.choice strong{font-size:25px;line-height:1}.choice small{font-size:14px;font-weight:700;color:#5b7685}.choice.correct{background:#dff7e5!important;border-color:#8ed09d}.choice.pulse{animation:pulse .55s ease}@keyframes pulse{50%{transform:scale(1.05) translateY(-5px)}}
+.next{position:absolute;z-index:20;bottom:4%;left:50%;transform:translateX(-50%);background:#29465b;color:#fff;border:4px solid #fff;border-radius:20px;padding:10px 26px;box-shadow:var(--shadow);font-size:19px;font-weight:800}.next:disabled{opacity:.45}
+.roundMessage{position:absolute;z-index:30;inset:0;background:#29465b55;display:none;place-items:center}.roundMessage.show{display:grid}.messageBox{background:#fff;border-radius:34px;padding:30px;text-align:center;box-shadow:0 25px 60px #29465b44;min-width:300px}.messageBox .big{font-size:75px}.messageBox h2{font-size:35px;margin:0}.messageBox button{background:#29465b;color:#fff;border-radius:17px;padding:11px 22px;font-weight:800;margin-top:10px}
+.countObjects{position:absolute;z-index:7;left:9%;right:9%;top:30%;bottom:32%;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:5px}.countObjects span{font-size:88px;filter:drop-shadow(0 10px 5px #315e6c22);transition:.2s}.countObjects span:hover{transform:translateY(-7px)}
+.numChoices{position:absolute;z-index:9;left:20%;right:20%;bottom:13%;display:flex;justify-content:center;gap:14px}.numChoices button{width:85px;height:75px;background:#fff0b2;border:5px solid #fff;border-radius:22px;box-shadow:var(--shadow);font-size:32px;font-weight:800}
+.memory{position:absolute;z-index:7;left:15%;right:15%;top:29%;bottom:11%;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-content:center}.memoryCard{aspect-ratio:1;border:5px solid #fff;border-radius:30px;background:linear-gradient(145deg,#8dceec,#68b5db);box-shadow:0 10px 0 #5c9fbe;color:#fff;font-size:64px;font-weight:800}.memoryCard.open{background:#fff;color:var(--ink);box-shadow:var(--shadow)}.memoryCard.matched{background:#e0f7e6;color:var(--ink);box-shadow:var(--shadow);border-color:#9bd5aa}
+@media(max-width:750px){
+ .brandName small{display:none}.brandName b{font-size:18px}.brandLogo{width:48px;height:48px}.stars{font-size:13px}
+ .homeTitle{top:11%;min-width:250px;padding:9px 15px}.homeTitle h1{font-size:30px}.homeTitle p{font-size:13px}
+ .hotspot{width:115px;height:115px}.hotspot .art{font-size:49px}.hotspot strong{font-size:18px}.hotspot small{font-size:11px}
+ .hColours{left:3%;top:30%}.hShapes{left:7%;top:58%}.hNumbers{right:7%;top:58%}.hPlay{right:3%;top:30%}.hMatch{top:61%}.hAnimals{top:26%}
+ .dinoArt{font-size:83px;bottom:9%}.teddy{font-size:60px;left:19%;bottom:8%}.plane{font-size:48px;right:19%;top:17%}.bird{font-size:36px}
+ .activityHeader{grid-template-columns:80px 1fr 75px}.back{font-size:13px;padding:7px}.activityName b{font-size:19px}.roundPill{font-size:12px;padding:7px}
+ .roundLine{top:77px}.instruction{top:13%;min-width:250px;padding:11px 15px}.instruction h2{font-size:28px}.instruction p{font-size:13px}
+ .choices{left:4%;right:4%;top:29%;bottom:12%;gap:9px}.choice{min-height:180px;border-radius:28px}.choice .visual{font-size:70px}.choice strong{font-size:19px}.choice small{font-size:11px}
+ .countObjects{top:29%;bottom:31%;left:4%;right:4%}.countObjects span{font-size:62px}.numChoices{left:5%;right:5%;bottom:12%;gap:8px}.numChoices button{width:64px;height:62px;font-size:26px}
+ .memory{left:7%;right:7%;top:29%;bottom:12%;gap:9px}.memoryCard{font-size:43px;border-radius:20px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HOME WORLD -->
+<section class="screen active" id="home">
+ <div class="sky"></div><div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+ <div class="backHills"></div><div class="frontHills"></div><div class="path"></div>
+ <header class="header">
+  <div class="brand"><div class="brandLogo"><svg viewBox="0 0 60 60"><path fill="#77c58b" d="M9 41C9 22 19 13 34 15c13 1 19 9 18 20-1 14-12 19-28 17C14 51 9 48 9 41z"/><circle cx="29" cy="30" r="3" fill="#29465b"/><circle cx="43" cy="30" r="3" fill="#29465b"/><path d="M31 37c4 4 8 4 11 0" fill="none" stroke="#29465b" stroke-width="3" stroke-linecap="round"/></svg></div><div class="brandName"><b>McKenzie's World</b><small>Pick a picture to play</small></div></div>
+  <div class="stars">⭐ <b id="stars">0</b></div>
+ </header>
+ <div class="homeTitle"><h1>Where shall we go?</h1><p>Tap a big picture 🌈</p></div>
+ <div class="world">
+  <button class="hotspot hColours" data-go="colours"><span class="art">🎨</span><strong>Colours</strong><small>find colours</small></button>
+  <button class="hotspot hShapes" data-go="shapes"><span class="art">🔷</span><strong>Shapes</strong><small>find shapes</small></button>
+  <button class="hotspot hNumbers" data-go="numbers"><span class="art">🔢</span><strong>Numbers</strong><small>count things</small></button>
+  <button class="hotspot hPlay" data-go="favourites"><span class="art">🧸</span><strong>Play</strong><small>favourite things</small></button>
+  <button class="hotspot hMatch" data-go="matching"><span class="art">🧩</span><strong>Match</strong><small>find the same</small></button>
+  <button class="hotspot hAnimals" data-go="animals"><span class="art">🐘</span><strong>Animals</strong><small>animal fun</small></button>
+ </div>
+ <div class="dinoArt">🦖</div><div class="teddy">🧸</div><div class="bird">🐦</div><div class="plane">✈️</div>
+ <div class="decor d1">🌼</div><div class="decor d2">🌷</div><div class="decor d3">🌸</div><div class="decor d4">🦋</div>
+</section>
+
+<!-- COLOURS -->
+<section class="screen activity" id="colours">
+ <header class="activityHeader">
+ <button class="back" data-go="home">← Home</button>
+ <div class="activityName"><b>🎨 Colour Garden</b><small id="colourRound">Round 1 of 5</small></div>
+ <div class="roundPill">⭐ <span id="colourRoundStars">0</span></div>
+</header>
+ <div class="roundLine"><i id="colourBar"></i></div>
+ <div class="instruction"><h2 id="colourQ"></h2><p>Tap the right picture</p></div>
+ <div class="choices" id="colourChoices"></div><button class="next" id="colourNext" disabled>Next →</button>
+ <div class="roundMessage" id="colourMessage"><div class="messageBox"><div class="big">🌈⭐</div><h2>Brilliant!</h2><p>You finished this activity.</p><button data-go="home">Back to my world</button></div></div>
+</section>
+
+<!-- SHAPES -->
+<section class="screen activity" id="shapes">
+ <header class="activityHeader">
+ <button class="back" data-go="home">← Home</button>
+ <div class="activityName"><b>🔷 Shape Clouds</b><small id="shapeRound">Round 1 of 5</small></div>
+ <div class="roundPill">⭐ <span id="shapeRoundStars">0</span></div>
+</header>
+ <div class="roundLine"><i id="shapeBar"></i></div>
+ <div class="instruction"><h2 id="shapeQ"></h2><p>Tap the right shape</p></div>
+ <div class="choices" id="shapeChoices"></div><button class="next" id="shapeNext" disabled>Next →</button>
+ <div class="roundMessage" id="shapeMessage"><div class="messageBox"><div class="big">🌈⭐</div><h2>Brilliant!</h2><p>You finished this activity.</p><button data-go="home">Back to my world</button></div></div>
+</section>
+
+<!-- NUMBERS -->
+<section class="screen activity" id="numbers">
+ <header class="activityHeader">
+ <button class="back" data-go="home">← Home</button>
+ <div class="activityName"><b>🔢 Number Meadow</b><small id="numberRound">Round 1 of 5</small></div>
+ <div class="roundPill">⭐ <span id="numberRoundStars">0</span></div>
+</header>
+ <div class="roundLine"><i id="numberBar"></i></div>
+ <div class="instruction"><h2 id="numberQ"></h2><p>Count the pictures</p></div>
+ <div class="countObjects" id="countObjects"></div>
+ <div class="numChoices" id="numChoices"></div><button class="next" id="numberNext" disabled>Next →</button>
+ <div class="roundMessage" id="numberMessage"><div class="messageBox"><div class="big">🌈⭐</div><h2>Brilliant!</h2><p>You finished this activity.</p><button data-go="home">Back to my world</button></div></div>
+</section>
+
+<!-- FAVOURITES -->
+<section class="screen activity" id="favourites">
+ <header class="activityHeader">
+ <button class="back" data-go="home">← Home</button>
+ <div class="activityName"><b>🧸 Favourite Play</b><small id="favRound">Round 1 of 5</small></div>
+ <div class="roundPill">⭐ <span id="favRoundStars">0</span></div>
+</header>
+ <div class="roundLine"><i id="favBar"></i></div>
+ <div class="instruction"><h2 id="favQ"></h2><p>Tap the picture</p></div>
+ <div class="choices" id="favChoices"></div><button class="next" id="favNext" disabled>Next →</button>
+ <div class="roundMessage" id="favMessage"><div class="messageBox"><div class="big">🌈⭐</div><h2>Brilliant!</h2><p>You finished this activity.</p><button data-go="home">Back to my world</button></div></div>
+</section>
+
+<!-- ANIMALS -->
+<section class="screen activity" id="animals">
+ <header class="activityHeader">
+ <button class="back" data-go="home">← Home</button>
+ <div class="activityName"><b>🐘 Animal Safari</b><small id="animalRound">Round 1 of 5</small></div>
+ <div class="roundPill">⭐ <span id="animalRoundStars">0</span></div>
+</header>
+ <div class="roundLine"><i id="animalBar"></i></div>
+ <div class="instruction"><h2 id="animalQ"></h2><p>Find the animal</p></div>
+ <div class="choices" id="animalChoices"></div><button class="next" id="animalNext" disabled>Next →</button>
+ <div class="roundMessage" id="animalMessage"><div class="messageBox"><div class="big">🌈⭐</div><h2>Brilliant!</h2><p>You finished this activity.</p><button data-go="home">Back to my world</button></div></div>
+</section>
+
+<!-- MATCHING -->
+<section class="screen activity" id="matching">
+ <header class="activityHeader">
+ <button class="back" data-go="home">← Home</button>
+ <div class="activityName"><b>🧩 Matching Meadow</b><small id="matchRound">Round 1 of 5</small></div>
+ <div class="roundPill">⭐ <span id="matchRoundStars">0</span></div>
+</header>
+ <div class="roundLine"><i id="matchBar"></i></div>
+ <div class="instruction"><h2>Find the matching pair</h2><p>No timer — take your time</p></div>
+ <div class="memory" id="memory"></div><button class="next" id="matchNext" disabled>Next →</button>
+ <div class="roundMessage" id="matchMessage"><div class="messageBox"><div class="big">🌈⭐</div><h2>Brilliant!</h2><p>You finished this activity.</p><button data-go="home">Back to my world</button></div></div>
+</section>
+
+<div id="toast" style="display:none"></div>
+</div>
+
+<script>
+
+const S={stars:Number(localStorage.getItem('mkStarsNew')||0),r:{colours:0,shapes:0,numbers:0,favourites:0,animals:0,matching:0},open:[],matched:[],memory:[]};
+const $=id=>document.getElementById(id);
+function save(){
+ $('stars').textContent=S.stars;
+ document.querySelectorAll('.roundPill span').forEach(x=>x.textContent=S.stars);
+ localStorage.setItem('mkStarsNew',S.stars)
+}
+function speak(t){if(!('speechSynthesis'in window))return;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.rate=.72;speechSynthesis.speak(u)}
+function toast(t){let x=$('toast');x.textContent=t;x.style.display='block';x.style.position='fixed';x.style.left='50%';x.style.bottom='20px';x.style.transform='translateX(-50%)';x.style.zIndex='100';x.style.background='#fff';x.style.padding='12px 20px';x.style.borderRadius='18px';x.style.boxShadow='0 15px 35px #24465b33';x.style.fontWeight='800';setTimeout(()=>x.style.display='none',1500)}
+function earn(){S.stars++;save();toast('Brilliant! ⭐')}
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5)}
+function show(id){
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active');
+ if(id==='colours')startColours();if(id==='shapes')startShapes();if(id==='numbers')startNumbers();
+ if(id==='favourites')startFavourites();if(id==='animals')startAnimals();if(id==='matching')startMatching();
+}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));
+
+const C=[
+ ['Find BLUE','Blue','✈️','#bfeeff'],['Find RED','Red','🍎','#ffd0d3'],['Find YELLOW','Yellow','☀️','#fff0a8'],
+ ['Find GREEN','Green','🦖','#c9efce'],['Find ORANGE','Orange','🍊','#ffd8bb']
+];
+let ci=0;
+function startColours(){ci=0;renderColours()}
+function renderColours(){
+ let r=C[ci];$('colourRound').textContent=`Round ${ci+1} of 5`;$('colourBar').style.width=(ci+1)*20+'%';$('colourQ').textContent=r[0];
+ let others=shuffle(C.map(x=>x).filter(x=>x[1]!==r[1])).slice(0,2);let opts=shuffle([r,...others]);
+ $('colourChoices').innerHTML=opts.map(x=>`<button class="choice" data-a="${x[1]}" style="background:${x[3]}"><span class="visual">${x[2]}</span><strong>${x[1]}</strong></button>`).join('');
+ $('colourNext').disabled=true;$('colourNext').textContent=ci===4?'Finish ⭐':'Next →';
+ document.querySelectorAll('#colourChoices .choice').forEach(b=>b.onclick=()=>{b.classList.add('pulse');if(b.dataset.a===r[1]){b.classList.add('correct');earn();speak(r[1]);$('colourNext').disabled=false}else speak('try again')});
+}
+$('colourNext').onclick=()=>ci<4?(ci++,renderColours()):(toast('Colour Garden finished! 🌈'),show('home'));
+
+const SH=[['Find the CIRCLE','Circle','●','☀️'],['Find the SQUARE','Square','■','🧸'],['Find the TRIANGLE','Triangle','▲','✈️'],['Find the STAR','Star','★','⭐'],['Find the HEART','Heart','♥','🧸']];
+let si=0;
+function startShapes(){si=0;renderShapes()}
+function renderShapes(){let r=SH[si];$('shapeRound').textContent=`Round ${si+1} of 5`;$('shapeBar').style.width=(si+1)*20+'%';$('shapeQ').textContent=r[0];let opts=shuffle([r,...shuffle(S.filter(x=>x[1]!==r[1])).slice(0,2)]);$('shapeChoices').innerHTML=opts.map(x=>`<button class="choice" data-a="${x[1]}" style="background:#f1edff"><span class="visual">${x[2]}</span><strong>${x[1]}</strong><small>${x[3]}</small></button>`).join('');$('shapeNext').disabled=true;$('shapeNext').textContent=si===4?'Finish ⭐':'Next →';document.querySelectorAll('#shapeChoices .choice').forEach(b=>b.onclick=()=>{b.classList.add('pulse');if(b.dataset.a===r[1]){b.classList.add('correct');earn();speak(r[1]);$('shapeNext').disabled=false}})}
+$('shapeNext').onclick=()=>si<4?(si++,renderShapes()):(toast('Shape Clouds finished! ⭐'),show('home'));
+
+const N=[['teddy bears','🧸'],['birds','🐦'],['dinosaurs','🦖'],['clouds','☁️'],['aeroplanes','✈️']];
+let ni=0;
+function startNumbers(){ni=0;renderNumbers()}
+function renderNumbers(){let amount=ni+1,word=N[ni];$('numberRound').textContent=`Round ${ni+1} of 5`;$('numberBar').style.width=(ni+1)*20+'%';$('numberQ').textContent=`How many ${word[0]}?`;$('countObjects').innerHTML=Array.from({length:amount},()=>`<span>${word[1]}</span>`).join('');let opts=shuffle([amount,...shuffle([1,2,3,4,5].filter(x=>x!==amount)).slice(0,2)]);$('numChoices').innerHTML=opts.map(x=>`<button data-n="${x}">${x}</button>`).join('');$('numberNext').disabled=true;$('numberNext').textContent=ni===4?'Finish ⭐':'Next →';document.querySelectorAll('#numChoices button').forEach(b=>b.onclick=()=>{if(+b.dataset.n===amount){b.style.background='#c9efd1';earn();speak(String(amount));$('numberNext').disabled=false}else speak('try again')})}
+$('numberNext').onclick=()=>ni<4?(ni++,renderNumbers()):(toast('Number Meadow finished! ⭐'),show('home'));
+
+const F=[['Find the DINOSAUR','Dinosaur','🦖'],['Find the TEDDY','Teddy','🧸'],['Find the BIRD','Bird','🐦'],['Find the PLANE','Plane','✈️'],['Find the BUTTERFLY','Butterfly','🦋']];
+let fi=0;
+function startFavourites(){fi=0;renderFavourites()}
+function renderFavourites(){let r=F[fi];$('favRound').textContent=`Round ${fi+1} of 5`;$('favBar').style.width=(fi+1)*20+'%';$('favQ').textContent=r[0];let others=shuffle(F.filter(x=>x[1]!==r[1])).slice(0,2);let opts=shuffle([r,...others]);$('favChoices').innerHTML=opts.map(x=>`<button class="choice" data-a="${x[1]}" style="background:#fff7ed"><span class="visual">${x[2]}</span><strong>${x[1]}</strong></button>`).join('');$('favNext').disabled=true;$('favNext').textContent=fi===4?'Finish ⭐':'Next →';document.querySelectorAll('#favChoices .choice').forEach(b=>b.onclick=()=>{b.classList.add('pulse');speak(b.dataset.a);if(b.dataset.a===r[1]){b.classList.add('correct');earn();$('favNext').disabled=false}})}
+$('favNext').onclick=()=>fi<4?(fi++,renderFavourites()):(toast('Play finished! 🧸'),show('home'));
+
+const A=[['Which is the ELEPHANT?','Elephant','🐘'],['Which is the LION?','Lion','🦁'],['Which is the DOG?','Dog','🐶'],['Which is the RABBIT?','Rabbit','🐰'],['Which is the FROG?','Frog','🐸']];
+let ai=0;
+function startAnimals(){ai=0;renderAnimals()}
+function renderAnimals(){let r=A[ai];$('animalRound').textContent=`Round ${ai+1} of 5`;$('animalBar').style.width=(ai+1)*20+'%';$('animalQ').textContent=r[0];let others=shuffle(A.filter(x=>x[1]!==r[1])).slice(0,2);let opts=shuffle([r,...others]);$('animalChoices').innerHTML=opts.map(x=>`<button class="choice" data-a="${x[1]}" style="background:#e8f8e8"><span class="visual">${x[2]}</span><strong>${x[1]}</strong></button>`).join('');$('animalNext').disabled=true;$('animalNext').textContent=ai===4?'Finish ⭐':'Next →';document.querySelectorAll('#animalChoices .choice').forEach(b=>b.onclick=()=>{b.classList.add('pulse');speak(b.dataset.a);if(b.dataset.a===r[1]){b.classList.add('correct');earn();$('animalNext').disabled=false}})}
+$('animalNext').onclick=()=>ai<4?(ai++,renderAnimals()):(toast('Animal Safari finished! 🐘'),show('home'));
+
+let mi=0;
+function startMatching(){mi=0;newMemory()}
+function newMemory(){let count=mi<2?3:4;let items=shuffle(['🦖','🧸','🐦','✈️','☀️','🦋']).slice(0,count);S.memory=shuffle([...items,...items]);S.open=[];S.matched=[];renderMemory();$('matchRound').textContent=`Round ${mi+1} of 5`;$('matchBar').style.width=(mi+1)*20+'%';$('matchNext').disabled=true;$('matchNext').textContent=mi===4?'Finish ⭐':'Next →'}
+function renderMemory(){$('memory').innerHTML=S.memory.map((x,i)=>`<button class="memoryCard ${S.open.includes(i)||S.matched.includes(i)?'open':''} ${S.matched.includes(i)?'matched':''}" data-i="${i}">${S.open.includes(i)||S.matched.includes(i)?x:'?'}</button>`).join('');document.querySelectorAll('.memoryCard').forEach(b=>b.onclick=()=>flip(+b.dataset.i))}
+function flip(i){if(S.open.includes(i)||S.matched.includes(i)||S.open.length>=2)return;S.open.push(i);renderMemory();if(S.open.length===2){let[a,b]=S.open;if(S.memory[a]===S.memory[b]){S.matched.push(a,b);S.open=[];earn();speak('match');renderMemory();if(S.matched.length===S.memory.length)$('matchNext').disabled=false}else setTimeout(()=>{S.open=[];renderMemory()},850)}}
+$('matchNext').onclick=()=>mi<4?(mi++,newMemory()):(toast('Matching finished! 🧩'),show('home'));
+save();
+</script>
+</body>
+</html>
